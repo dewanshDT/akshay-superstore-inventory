@@ -1,0 +1,71 @@
+/* public/styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f4f4f9;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+nav {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #007bff;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+button {
+  padding: 8px 16px;
+  margin-bottom: 10px;
+}
+
+#products-table,
+#suppliers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#products-table th,
+#products-table td,
+#suppliers-table th,
+#suppliers-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+#product-form-container,
+#supplier-form-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+label {
+  display: inline-block;
+  width: 150px;
+  vertical-align: top;
+}
+
+input,
+textarea {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.actions button {
+  margin-right: 5px;
+}

@@ -1,0 +1,52 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Inventory Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Inventory Management System - Products</h1>
+    <nav>
+        <a href="/">Products</a> | <a href="/suppliers">Suppliers</a>
+    </nav>
+    <button onclick="showAddProductForm()">Add Product</button>
+    <table id="products-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Stock Quantity</th>
+                <th>Reorder Level</th>
+                <th>Maximum Stock Level</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Products will be inserted here -->
+        </tbody>
+    </table>
+
+    <!-- Add/Edit Product Form -->
+    <div id="product-form-container" style="display:none;">
+        <h2 id="form-title">Add Product</h2>
+        <form id="product-form">
+            <input type="hidden" name="id">
+            <label>Name:</label><input type="text" name="name" required><br>
+            <label>Description:</label><textarea name="description"></textarea><br>
+            <label>Stock Quantity:</label><input type="number" name="stockQuantity" required><br>
+            <label>Reorder Level:</label><input type="number" name="reorderLevel" required><br>
+            <label>Maximum Stock Level:</label><input type="number" name="maximumStockLevel" required><br>
+            <label>Price:</label><input type="number" step="0.01" name="price" required><br>
+            <button type="submit">Save Product</button>
+            <button type="button" onclick="hideProductForm()">Cancel</button>
+        </form>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

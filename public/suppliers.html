@@ -1,0 +1,44 @@
+<!-- public/suppliers.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Inventory Management System - Suppliers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Inventory Management System - Suppliers</h1>
+    <nav>
+        <a href="/">Products</a> | <a href="/suppliers">Suppliers</a>
+    </nav>
+    <button onclick="showAddSupplierForm()">Add Supplier</button>
+    <table id="suppliers-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contact Info</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Suppliers will be inserted here -->
+        </tbody>
+    </table>
+
+    <!-- Add/Edit Supplier Form -->
+    <div id="supplier-form-container" style="display:none;">
+        <h2 id="form-title">Add Supplier</h2>
+        <form id="supplier-form">
+            <input type="hidden" name="id">
+            <label>Name:</label><input type="text" name="name" required><br>
+            <label>Contact Info:</label><input type="text" name="contactInfo"><br>
+            <button type="submit">Save Supplier</button>
+            <button type="button" onclick="hideSupplierForm()">Cancel</button>
+        </form>
+    </div>
+
+    <script src="suppliers.js"></script>
+</body>
+
+</html>
