@@ -54,7 +54,6 @@ Welcome to the **Akshay Superstore Inventory Management System**. This applicati
   - HTML5, CSS3, and JavaScript (ES6) for the user interface.
 - **Development Tools**:
   - [Nodemon](https://nodemon.io/) for automatic server restarts during development.
-  - [Docker](https://www.docker.com/) (optional) for containerization.
 
 ---
 
@@ -182,8 +181,6 @@ npm start
   index.js               # Main server file
   package.json           # Project metadata and scripts
   package-lock.json      # Dependency tree
-  Dockerfile             # Docker configuration (optional)
-  docker-compose.yml     # Docker Compose configuration (optional)
 ```
 
 ---
