@@ -77,3 +77,11 @@ textarea {
 .button-group button {
   margin-right: 5px;
 }
+
+.critical-stock {
+  background-color: #ffcccc; /* Light red background */
+}
+
+.critical-stock td {
+  color: #b30000; /* Dark red text */
+}

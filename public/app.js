@@ -20,12 +20,25 @@ function fetchProducts() {
       tbody.innerHTML = ""
       products.forEach((product) => {
         const row = document.createElement("tr")
+
+        // Calculate the percentage of current stock to maximum stock
+        const stockPercentage =
+          (product.stockQuantity / product.maximumStockLevel) * 100
+
         let alertMessage = ""
         if (product.stockQuantity <= product.reorderLevel) {
           alertMessage = " ⚠️ Low Stock"
         } else if (product.stockQuantity > product.maximumStockLevel) {
           alertMessage = " ⚠️ Overstocked"
         }
+
+        // New warning for stock <= 10% of maximum stock
+        if (stockPercentage <= 10) {
+          alertMessage += " ⚠️ Critical Stock Level"
+          // Add a class to highlight the row
+          row.classList.add("critical-stock")
+        }
+
         row.innerHTML = `
           <td>${product.name}${alertMessage}</td>
           <td>${product.description || ""}</td>
