@@ -9,10 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 })
 
+let productsData = [] // Store the products data
+
 function fetchProducts() {
   fetch("/api/products")
     .then((response) => response.json())
     .then((products) => {
+      productsData = products // Store the data for CSV export
       const tbody = document.querySelector("#products-table tbody")
       tbody.innerHTML = ""
       products.forEach((product) => {
@@ -24,21 +27,67 @@ function fetchProducts() {
           alertMessage = " ⚠️ Overstocked"
         }
         row.innerHTML = `
-            <td>${product.name}${alertMessage}</td>
-            <td>${product.description || ""}</td>
-            <td>${product.stockQuantity}</td>
-            <td>${product.reorderLevel}</td>
-            <td>${product.maximumStockLevel}</td>
-            <td>${product.price}</td>
-            <td class="actions">
-              <button onclick="editProduct(${product.id})">Edit</button>
-              <button onclick="deleteProduct(${product.id})">Delete</button>
-            </td>
-          `
+          <td>${product.name}${alertMessage}</td>
+          <td>${product.description || ""}</td>
+          <td>${product.stockQuantity}</td>
+          <td>${product.reorderLevel}</td>
+          <td>${product.maximumStockLevel}</td>
+          <td>${product.price}</td>
+          <td class="actions">
+            <button onclick="editProduct(${product.id})">Edit</button>
+            <button onclick="deleteProduct(${product.id})">Delete</button>
+          </td>
+        `
         tbody.appendChild(row)
       })
     })
     .catch((error) => console.error("Error fetching products:", error))
+}
+
+function exportProductsToCSV() {
+  if (productsData.length === 0) {
+    alert("No data available to export.")
+    return
+  }
+
+  const csvRows = []
+  // Define the headers
+  const headers = [
+    "ID",
+    "Name",
+    "Description",
+    "Stock Quantity",
+    "Reorder Level",
+    "Maximum Stock Level",
+    "Price",
+  ]
+  csvRows.push(headers.join(","))
+
+  // Add the data
+  for (const product of productsData) {
+    const values = [
+      product.id,
+      `"${product.name}"`,
+      `"${product.description || ""}"`,
+      product.stockQuantity,
+      product.reorderLevel,
+      product.maximumStockLevel,
+      product.price,
+    ]
+    csvRows.push(values.join(","))
+  }
+
+  // Create a Blob from the CSV string
+  const csvString = csvRows.join("\n")
+  const blob = new Blob([csvString], { type: "text/csv" })
+
+  // Create a link to download it
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = url
+  a.download = "products.csv"
+  a.click()
+  window.URL.revokeObjectURL(url)
 }
 
 function showAddProductForm() {

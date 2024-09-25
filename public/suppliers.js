@@ -9,26 +9,63 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 })
 
+let suppliersData = [] // Store the suppliers data
+
 function fetchSuppliers() {
   fetch("/api/suppliers")
     .then((response) => response.json())
     .then((suppliers) => {
+      suppliersData = suppliers // Store the data for CSV export
       const tbody = document.querySelector("#suppliers-table tbody")
       tbody.innerHTML = ""
       suppliers.forEach((supplier) => {
         const row = document.createElement("tr")
         row.innerHTML = `
-            <td>${supplier.name}</td>
-            <td>${supplier.contactInfo || ""}</td>
-            <td class="actions">
-              <button onclick="editSupplier(${supplier.id})">Edit</button>
-              <button onclick="deleteSupplier(${supplier.id})">Delete</button>
-            </td>
-          `
+          <td>${supplier.name}</td>
+          <td>${supplier.contactInfo || ""}</td>
+          <td class="actions">
+            <button onclick="editSupplier(${supplier.id})">Edit</button>
+            <button onclick="deleteSupplier(${supplier.id})">Delete</button>
+          </td>
+        `
         tbody.appendChild(row)
       })
     })
     .catch((error) => console.error("Error fetching suppliers:", error))
+}
+
+function exportSuppliersToCSV() {
+  if (suppliersData.length === 0) {
+    alert("No data available to export.")
+    return
+  }
+
+  const csvRows = []
+  // Define the headers
+  const headers = ["ID", "Name", "Contact Info"]
+  csvRows.push(headers.join(","))
+
+  // Add the data
+  for (const supplier of suppliersData) {
+    const values = [
+      supplier.id,
+      `"${supplier.name}"`,
+      `"${supplier.contactInfo || ""}"`,
+    ]
+    csvRows.push(values.join(","))
+  }
+
+  // Create a Blob from the CSV string
+  const csvString = csvRows.join("\n")
+  const blob = new Blob([csvString], { type: "text/csv" })
+
+  // Create a link to download it
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = url
+  a.download = "suppliers.csv"
+  a.click()
+  window.URL.revokeObjectURL(url)
 }
 
 function showAddSupplierForm() {
